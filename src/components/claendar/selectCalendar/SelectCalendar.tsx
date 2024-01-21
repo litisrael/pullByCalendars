@@ -7,7 +7,7 @@ import { supabase } from '../../../conection/client.js';
 
 export function SelectOptionComponent() {
  
-  const [selectedValue, setSelectedValue] = useState<string | null>('One day');
+  const [selectedValue, setSelectedValue] = useState<string | null>('pick day or range');
   const [minDate, setMinDate] = useState<Date | undefined>(undefined)
   const [maxDate, setMaxDate] = useState<Date |  undefined>(undefined)
   const [datesLoaded, setDatesLoaded] = useState(false);
@@ -41,11 +41,11 @@ export function SelectOptionComponent() {
     return <p>Cargando fechas...</p>;
   }
   const componentsMap: Record<string, React.ReactNode> = {
-    'One day': <CalendarDayPicker minDate={minDate} maxDate={maxDate} />,
+    'pick day or range': <CalendarDayPicker minDate={minDate} maxDate={maxDate} />,
     'One month': <MonthPicker />,
   };
 
-  const handleSelectChange = (value: string | null) => {
+  const handleSelectChange = (value: string ) => {
     console.log('valor', value);
     setSelectedValue(value);
   };
@@ -56,11 +56,11 @@ export function SelectOptionComponent() {
         <Select
           label="Input label"
           description="Input description"
-          placeholder="Select placeholder"
-          defaultValue="One day"
+          // placeholder="Select placeholder"
+          // defaultValue= 'pick day or range'
           allowDeselect={false}
           onChange={handleSelectChange}
-          data={['One day', 'One month']}
+          data={['pick day or range', 'One month']}
           value={selectedValue}
         />
       </Group>
