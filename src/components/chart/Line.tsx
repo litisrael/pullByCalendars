@@ -36,16 +36,35 @@ import { AreaChart } from '@mantine/charts';
 //     },
 //   ];
  export function CharatLine( {data}) {
+  if (!data || data.length === 0) {
+    return null;
+  }
+
+  const properties = Object.keys(data[0]);
+
+  // Excluir la primera propiedad como el name
+  const name = properties.slice(1);
+
+  const colorArray = ['indigo.6', 'blue.1', 'teal.4'];
+  // Obtener el array de series con name y color
+  const series = name.map((property, index) => ({
+    name: property,
+    color: colorArray[index % colorArray.length], 
+  }));
+
+  console.log("series",series);
+  
   return (
     <AreaChart
       h={300}
       data={data}
       dataKey="date"
-      series={[
-        { name: 'total', color: 'indigo.6' },
-        // { name: 'Oranges', color: 'blue.6' },
-        // { name: 'Tomatoes', color: 'teal.6' },
-      ]}
+      series={series}
+      // series={[
+      //   { name: 'total', color: 'indigo.6' },
+      //   { name: 'Oranges', color: 'blue.6' },
+      //   { name: 'Tomatoes', color: 'teal.6' },
+      // ]}
       curveType="linear"
     />
   );

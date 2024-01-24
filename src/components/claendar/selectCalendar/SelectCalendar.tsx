@@ -12,7 +12,8 @@ export function SelectOptionComponent() {
   const [maxDate, setMaxDate] = useState<Date |  undefined>(undefined)
   const [datesLoaded, setDatesLoaded] = useState(false);
 
-  const fetchData = async () => {
+
+  const fetchFromTo = async () => {
     try {
       const { data, error } = await supabase.rpc('maxymindates');
       const firstData = data && data[0];
@@ -34,12 +35,13 @@ export function SelectOptionComponent() {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchFromTo();
   }, []);
 
   if (!datesLoaded) {
     return <p>Cargando fechas...</p>;
   }
+
   const componentsMap: Record<string, React.ReactNode> = {
     'pick day or range': <CalendarDayPicker minDate={minDate} maxDate={maxDate} />,
     'One month': <MonthPicker />,
